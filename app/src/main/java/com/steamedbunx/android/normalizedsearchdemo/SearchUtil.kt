@@ -36,3 +36,17 @@ fun getNormalMatchWeightedString(matchPhrase: CharSequence, inputString: String)
     // result not find after the entire iteration, pattern does not match
     return null
 }
+
+fun searchListForResults(searchPhrase: String, inputs: List<String>): List<WeightedString> {
+    val result = ArrayList<WeightedString>()
+    val normalizedSearchPhrase = searchPhrase.trim().replace("[^a-zA-Z]".toRegex(), "").toLowerCase()
+    if (!normalizedSearchPhrase.isBlank()) {
+        inputs.forEach {
+            val potentialResult = getNormalMatchWeightedString(normalizedSearchPhrase, it)
+            if (potentialResult != null) {
+                result.add(potentialResult)
+            }
+        }
+    }
+    return result.toList()
+}
