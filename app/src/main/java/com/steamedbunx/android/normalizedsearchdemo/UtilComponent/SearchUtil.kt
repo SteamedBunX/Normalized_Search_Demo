@@ -1,4 +1,4 @@
-package com.steamedbunx.android.normalizedsearchdemo
+package com.steamedbunx.android.normalizedsearchdemo.UtilComponent
 
 import android.graphics.Typeface
 import android.text.SpannableString
@@ -29,7 +29,10 @@ fun getNormalMatchWeightedString(matchPhrase: CharSequence, inputString: String)
             // we find everything, in order
             if (currentIndexForNormalMatch >= searchPhrase.length) {
                 // this is a normal result with no pattern
-                return WeightedString(resultStringForNormalResult, 0)
+                return WeightedString(
+                    resultStringForNormalResult,
+                    0
+                )
             }
         }
     }
@@ -42,7 +45,11 @@ fun searchListForResults(searchPhrase: String, inputs: List<String>): List<Weigh
     val normalizedSearchPhrase = searchPhrase.trim().replace("[^a-zA-Z]".toRegex(), "").toLowerCase()
     if (!normalizedSearchPhrase.isBlank()) {
         inputs.forEach {
-            val potentialResult = getNormalMatchWeightedString(normalizedSearchPhrase, it)
+            val potentialResult =
+                getNormalMatchWeightedString(
+                    normalizedSearchPhrase,
+                    it
+                )
             if (potentialResult != null) {
                 result.add(potentialResult)
             }

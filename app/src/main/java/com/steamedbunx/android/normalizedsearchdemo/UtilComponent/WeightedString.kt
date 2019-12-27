@@ -1,4 +1,4 @@
-package com.steamedbunx.android.normalizedsearchdemo
+package com.steamedbunx.android.normalizedsearchdemo.UtilComponent
 
 import android.text.SpannableString
 
