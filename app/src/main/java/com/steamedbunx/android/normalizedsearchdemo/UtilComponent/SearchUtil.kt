@@ -9,8 +9,7 @@ fun getNormalMatchWeightedString(matchPhrase: CharSequence, inputString: String)
     // process the text for searching, ignoring spaces completely
     //val searchPhrase = matchPhrase.trim().replace("\\s".toRegex(), "").toLowerCase()
     val searchPhrase = matchPhrase
-    val resultStringForNormalResult = SpannableString(inputString)
-
+    val boldData = BoldData()
     var currentIndexForNormalMatch = 0
 
     // i need keep track of the index, so when a matched char is find
@@ -20,19 +19,14 @@ fun getNormalMatchWeightedString(matchPhrase: CharSequence, inputString: String)
         // we find a match
         if (inputString[i] == searchPhrase[currentIndexForNormalMatch]) {
             // bold the character
-            resultStringForNormalResult.setSpan(
-                StyleSpan(Typeface.BOLD),
-                i, i+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            boldData.add(i)
             // let index move up
             currentIndexForNormalMatch++
             // we find everything, in order
             if (currentIndexForNormalMatch >= searchPhrase.length) {
                 // this is a normal result with no pattern
-                return WeightedString(
-                    resultStringForNormalResult,
-                    0
-                )
+                val result = WeightedString(boldData.processBoldText(inputString), 0)
+                return result
             }
         }
     }
