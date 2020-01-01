@@ -34,6 +34,26 @@ fun getNormalMatchWeightedString(matchPhrase: CharSequence, inputString: String)
     return null
 }
 
+fun getInnerFullMatcHWeightedString(matchPhrase: CharSequence, inputString: String): WeightedString? {
+    // process the text for searching, ignoring spaces completely
+    //val searchPhrase = matchPhrase.trim().replace("\\s".toRegex(), "").toLowerCase()
+    val searchPhrase = matchPhrase
+    val boldData = BoldData()
+    var currentIndexForNormalMatch = 0
+
+    // Look for the exact
+    val resultIndex = inputString.indexOf(matchPhrase.toString())
+    // result not find after the entire iteration, pattern does not match
+    if(resultIndex == -1) {
+        return null
+    }
+    if(resultIndex == 0){
+        boldData.addLength(0, matchPhrase.length)
+        return WeightedString(boldData.processBoldText(inputString), 3)
+    }
+    return null
+}
+
 fun searchListForResults(searchPhrase: String, inputs: List<String>): List<WeightedString> {
     val result = ArrayList<WeightedString>()
     val normalizedSearchPhrase = searchPhrase.trim().replace("[^a-zA-Z]".toRegex(), "").toLowerCase()

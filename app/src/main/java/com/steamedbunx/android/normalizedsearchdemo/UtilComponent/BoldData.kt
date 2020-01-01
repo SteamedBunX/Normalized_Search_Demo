@@ -17,6 +17,10 @@ class BoldData(){
         }
     }
 
+    fun addLength(fromIndex: Int, toIndex: Int){
+        boldIndexs.add(BoldDataPair(fromIndex, toIndex))
+    }
+
     fun processBoldText(source: String):SpannableStringBuilder{
         val result = SpannableStringBuilder(source)
         boldIndexs.forEach{
